@@ -1,0 +1,6 @@
+sensor.powergenerated:
+  icon: hass:power-plug-off
+sensor.powerstatusat:
+  icon: hass:clock
+sensor.powerusage:
+  icon: hass:power-plug

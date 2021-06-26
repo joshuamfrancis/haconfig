@@ -1,0 +1,5 @@
+- platform: scrape
+  name: bins
+  resource: https://digital.wyndham.vic.gov.au/myWyndham/init-map-data.asp?propnum=172369&radius=2000
+  select: "infocaritem div"
+

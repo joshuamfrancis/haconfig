@@ -1,0 +1,46 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensors.yaml
+
+rest:
+  - authentication: basic
+    username: "maryarthyjoshua@gmail.com"
+    password: !secret solaranalytics
+    scan_interval: 300
+    resource: https://portal.solaranalytics.com.au/api/v3/live_site_data?last_six=true&site_id=228383
+    sensor:
+      - name: "PowerUsage"
+        value_template: '{{value_json.data[-1]["consumed"]}}'
+      - name: "PowerGenerated"
+        value_template: '{{value_json.data[-1]["generated"]}}'
+      - name: "PowerStatusAt"
+        value_template: '{{value_json.data[-1]["t_stamp"]}}'
+        
+sensor:
+  - platform: mqtt
+    name: "Indoor Temperature"
+    icon: mdi:mdiThermometer 
+    state_topic: "sensor/indoor/temperature"
+    unit_of_measurement: "C"
+
+  - platform: mqtt
+    name: "Indoor Humidity"
+    icon: mdi:mdiOpacity
+    state_topic: "sensor/indoor/humidity"
+    unit_of_measurement: "%"
+
+  - platform: mqtt
+    name: "Indoor Pressure"
+    icon: mdi:mdiTransferDown
+    state_topic: "sensor/indoor/pressure"
+    unit_of_measurement: "hPa"

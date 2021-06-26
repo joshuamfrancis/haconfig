@@ -1,0 +1,32 @@
+- id: '1621595723183'
+  alias: esp-passageLight
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: esp8266/testfjm
+    payload: hello emqx
+  condition: []
+  action:
+  - type: toggle
+    device_id: 0a948abb09f283b28b7e61a2b4448882
+    entity_id: light.passage_light_1
+    domain: light
+  mode: single
+- id: '1622193953002'
+  alias: PixelLowOnCharge
+  description: PixelLowOnCharge
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.pixel_4_xl_is_charging
+    to: charging
+  condition: []
+  action:
+  - service: light.turn_on
+    data_template:
+      device_id: f4b656b5df136c542a0630b9ff43fa2c
+      entity_id: light.bed_light
+      brightness_pct: 100
+      color_name: > 
+        'red'
+    domain: light
+  mode: single
